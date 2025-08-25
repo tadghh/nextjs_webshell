@@ -4,15 +4,14 @@ import { promisify } from 'util';
 const execAsync = promisify(exec);
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
+  if (req.method !== 'POST')
     return res.status(405).json({ error: 'Method not allowed' });
-  }
 
   const { command, type = 'exec' } = req.body;
 
-  if (!command) {
+  if (!command)
     return res.status(400).json({ error: 'Command required' });
-  }
+
 
   try {
     let result;
@@ -20,7 +19,7 @@ export default async function handler(req, res) {
     if (type === 'exec') {
       const { stdout, stderr } = await execAsync(command, {
         timeout: 10000,
-        maxBuffer: 1024 * 1024 // 1MB max output
+        maxBuffer: 1024 * 1024
       });
       result = { stdout, stderr };
     } else if (type === 'spawn') {
@@ -46,7 +45,6 @@ export default async function handler(req, res) {
 
         child.on('error', reject);
 
-        // Kill after 10 seconds
         setTimeout(() => {
           child.kill();
           reject(new Error('Command timeout'));
