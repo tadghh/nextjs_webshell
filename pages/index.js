@@ -144,7 +144,7 @@ export default function Home() {
         overflowY: 'auto'
       }}>
         {output.length === 0 ? (
-          <div style={{ color: '#666' }}>No commands executed yet...</div>
+          <div style={{ color: '#666' }}>No commands executed yet he he he...</div>
         ) : (
           output.map((entry, idx) => (
             <div key={idx} style={{ marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px' }}>
