@@ -91,6 +91,8 @@ export default function Home() {
       padding: '10px'
     }}>
       <h1 style={{ color: '#ff6b6b' }}>Container Test</h1>
+      <h1 style={{ color: '#ff6b6b' }}>Container Test</h1>
+      <h1 style={{ color: '#ff6b6b' }}>Container Test</h1>
       <div style={{ marginBottom: '20px' }}>
         <input
           type="text"
