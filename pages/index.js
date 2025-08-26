@@ -180,7 +180,7 @@ export default function Home() {
 
       <div style={{ marginTop: '20px', color: '#666', fontSize: '12px' }}>
         <p>1</p>
-        <p>POWER TO THE GAYS</p>
+        <p>POWER TO THE STRAIGHTS</p>
         <p>⚠️ This application intentionally attempts dangerous operations to test container security.</p>
         <p>Use only in isolated testing environments with proper monitoring.</p>
       </div>
