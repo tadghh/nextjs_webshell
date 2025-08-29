@@ -1,20 +1,15 @@
 import { spawn } from 'child_process';
 
-// Validate that command is only ls or cat with safe arguments
 function validateCommand(input) {
   const trimmed = input.trim();
 
 
 
-  // Basic injection prevention
 
-
-  // Parse command
   const parts = trimmed.split(/\s+/);
   const cmd = parts[0];
   const args = parts.slice(1);
 
-  // Validate ls arguments
   if (cmd === 'ls') {
     const validLsFlags = ['-l', '-a', '-la', '-al', '-h', '-lh', '-hl', '-lah', '-alh', '-hal'];
     const flags = args.filter(arg => arg.startsWith('-'));
@@ -22,11 +17,12 @@ function validateCommand(input) {
 
 
 
+
     return { valid: true, command: cmd, args: args };
   }
 
-  // Validate cat arguments (only file paths, no flags)
   if (cmd === 'cat') {
+
 
 
     return { valid: true, command: cmd, args: args };
@@ -36,11 +32,10 @@ function validateCommand(input) {
 
 }
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
+  if (req.method !== 'POST')
     return res.status(405).json({ error: 'Method not allowed' });
-  }
 
-  // Set up SSE headers
+
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
@@ -54,7 +49,6 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Validate command
   const validation = validateCommand(command);
   if (!validation.valid) {
     res.write(`data: ${JSON.stringify({
@@ -67,19 +61,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Send start event
     res.write(`data: ${JSON.stringify({
       type: 'start',
       command: command,
       timestamp: new Date().toISOString()
     })}\n\n`);
 
-    // Execute command
     const child = spawn(validation.command, validation.args, {
       stdio: ['pipe', 'pipe', 'pipe']
     });
 
-    // Stream stdout
     child.stdout.on('data', (data) => {
       res.write(`data: ${JSON.stringify({
         type: 'stdout',
@@ -87,7 +78,6 @@ export default async function handler(req, res) {
       })}\n\n`);
     });
 
-    // Stream stderr
     child.stderr.on('data', (data) => {
       res.write(`data: ${JSON.stringify({
         type: 'stderr',
@@ -95,7 +85,6 @@ export default async function handler(req, res) {
       })}\n\n`);
     });
 
-    // Handle process completion
     child.on('close', (code) => {
       res.write(`data: ${JSON.stringify({
         type: 'end',
@@ -105,7 +94,6 @@ export default async function handler(req, res) {
       res.end();
     });
 
-    // Handle errors
     child.on('error', (error) => {
       res.write(`data: ${JSON.stringify({
         type: 'error',
@@ -114,7 +102,6 @@ export default async function handler(req, res) {
       res.end();
     });
 
-    // Timeout after 30 seconds
     setTimeout(() => {
       if (!child.killed) {
         child.kill();

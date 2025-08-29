@@ -55,8 +55,9 @@ export default function Home() {
       background: '#1a1a1a',
       color: '#00ff00',
       minHeight: '100vh',
-      padding: '20px'
+      padding: '10px'
     }}>
+
 
       <div style={{
         display: 'flex',
@@ -70,6 +71,7 @@ export default function Home() {
         </div>
         <img src="/yo.png" height={200} style={{ marginLeft: "auto" }} alt="" />
       </div>
+
 
 
 
@@ -127,7 +129,7 @@ export default function Home() {
         overflowY: 'auto'
       }}>
         {output.length === 0 ? (
-          <div style={{ color: '#666' }}>No commands executed yet...</div>
+          <div style={{ color: '#666' }}>No commands executed yet he he he...</div>
         ) : (
           output.map((entry, idx) => (
             <div key={idx} style={{ marginBottom: '20px', borderBottom: '1px solid #333', paddingBottom: '10px' }}>
@@ -160,7 +162,6 @@ export default function Home() {
           ))
         )}
       </div>
-
 
     </div>
   );
