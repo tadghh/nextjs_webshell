@@ -5,61 +5,6 @@ export default function Home() {
   const [output, setOutput] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const presetCommands = [
-    // Basic system info
-    'whoami',
-    'id',
-    'pwd',
-    'uname -a',
-    'cat /etc/os-release',
-
-    // Process and environment
-    'ps aux',
-    'env',
-    'mount',
-    'df -h',
-
-    // Network discovery
-    'ip addr',
-    'netstat -tulpn',
-    'ss -tulpn',
-
-    // Container detection
-    'cat /proc/1/cgroup',
-    'ls -la /.dockerenv',
-    'cat /proc/self/mountinfo',
-
-    // Container breakout attempts
-    'docker ps',
-    'docker images',
-    'docker run --rm -it alpine sh',
-
-    // Privileged operations
-    'mount -t proc proc /host/proc',
-    'nsenter -t 1 -m -u -i -n -p sh',
-    'chroot /host',
-
-    // File system exploration
-    'ls -la /',
-    'cat /proc/mounts',
-    'findmnt',
-    'lsblk',
-
-    // Capability testing
-    'capsh --print',
-    'getcap -r /',
-
-    // Escape sequences
-    'echo "Testing escape: \\$(whoami)"',
-    '$(whoami)',
-    '`whoami`',
-
-    // Dangerous operations (should be blocked)
-    'rm -rf /',
-    ':(){ :|:& };:',
-    'cat /etc/shadow',
-    'chmod 777 /',
-  ];
 
   const executeCommand = async (cmd = command) => {
     if (!cmd.trim()) return;
@@ -112,39 +57,22 @@ export default function Home() {
       minHeight: '100vh',
       padding: '20px'
     }}>
-      <h1 style={{ color: '#ff6b6b' }}>🔒 Container Breakout Security Test</h1>
-      <p style={{ color: '#ffd93d' }}>
-        Testing application for container escape vulnerabilities
-      </p>
 
-      <div style={{ marginBottom: '20px' }}>
-        <h3>Preset Commands:</h3>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '5px',
-          marginBottom: '20px'
-        }}>
-          {presetCommands.map((cmd, idx) => (
-            <button
-              key={idx}
-              onClick={() => executeCommand(cmd)}
-              disabled={loading}
-              style={{
-                background: '#333',
-                color: '#00ff00',
-                border: '1px solid #555',
-                padding: '5px 10px',
-                cursor: 'pointer',
-                fontSize: '12px',
-                textAlign: 'left'
-              }}
-            >
-              {cmd}
-            </button>
-          ))}
+      <div style={{
+        display: 'flex',
+
+      }}>
+        <div>
+          <h1 style={{ color: '#ff6b6b' }}>Container Breakout Security Test</h1>
+          <p style={{ color: '#ffd93d' }}>
+            Testing application for container escape vulnerabilities
+          </p>
         </div>
+        <img src="/yo.png" height={200} style={{ marginLeft: "auto" }} alt="" />
       </div>
+
+
+
 
       <div style={{ marginBottom: '20px' }}>
         <input
@@ -233,10 +161,7 @@ export default function Home() {
         )}
       </div>
 
-      <div style={{ marginTop: '20px', color: '#666', fontSize: '12px' }}>
-        <p>⚠️ This application intentionally attempts dangerous operations to test container security.</p>
-        <p>Use only in isolated testing environments with proper monitoring.</p>
-      </div>
+
     </div>
   );
 }
