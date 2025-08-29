@@ -5,39 +5,6 @@ export default function Home() {
   const [output, setOutput] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const presetCommands = [
-    'whoami',
-    'id',
-    'pwd',
-    'uname -a',
-    'cat /etc/os-release',
-    'ps aux',
-    'env',
-    'mount',
-    'df -h',
-    'ip addr',
-    'netstat -tulpn',
-    'ss -tulpn',
-    'cat /proc/1/cgroup',
-    'ls -la /.dockerenv',
-    'cat /proc/self/mountinfo',
-    'mount -t proc proc /host/proc',
-    'nsenter -t 1 -m -u -i -n -p sh',
-    'chroot /host',
-    'ls -la /',
-    'cat /proc/mounts',
-    'findmnt',
-    'lsblk',
-    'capsh --print',
-    'getcap -r /',
-    'echo "Testing escape: \\$(whoami)"',
-    '$(whoami)',
-    '`whoami`',
-    'rm -rf /',
-    ':(){ :|:& };:',
-    'cat /etc/shadow',
-    'chmod 777 /',
-  ];
 
   const executeCommand = async (cmd = command) => {
     if (!cmd.trim()) return;
@@ -90,10 +57,25 @@ export default function Home() {
       minHeight: '100vh',
       padding: '10px'
     }}>
-      <h1 style={{ color: '#ff6b6b' }}>sdsss Test</h1>
-      <h1 style={{ color: '#ff6b6b' }}>Container Test</h1>
-      <h1 style={{ color: '#ff6b6b' }}>Container Test</h1>
-      <h1 style={{ color: '#ff6b6b' }}>Container Test</h1>
+
+
+      <div style={{
+        display: 'flex',
+
+      }}>
+        <div>
+          <h1 style={{ color: '#ff6b6b' }}>Container Breakout Security Test</h1>
+          <p style={{ color: '#ffd93d' }}>
+            Testing application for container escape vulnerabilities
+          </p>
+        </div>
+        <img src="/yo.png" height={200} style={{ marginLeft: "auto" }} alt="" />
+      </div>
+
+
+
+
+
       <div style={{ marginBottom: '20px' }}>
         <input
           type="text"
@@ -181,12 +163,6 @@ export default function Home() {
         )}
       </div>
 
-      <div style={{ marginTop: '20px', color: '#666', fontSize: '12px' }}>
-        <p>1</p>
-        <p>POWER TO THE STRAIGHTS</p>
-        <p>⚠️ This application intentionally attempts dangerous operations to test container security.</p>
-        <p>Use only in isolated testing environments with proper monitoring.</p>
-      </div>
     </div>
   );
 }

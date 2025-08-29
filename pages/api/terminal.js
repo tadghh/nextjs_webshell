@@ -3,13 +3,7 @@ import { spawn } from 'child_process';
 function validateCommand(input) {
   const trimmed = input.trim();
 
-  if (!trimmed.match(/^(ls|cat)\s/))
-    return { valid: false, error: 'Only "ls" and "cat" commands are allowed' };
 
-
-  const dangerous = ['|', '&', ';', '`', '>', '<', '(', ')', '{', '}', '*'];
-  if (dangerous.some(char => trimmed.includes(char)))
-    return { valid: false, error: 'Special characters not allowed' };
 
 
   const parts = trimmed.split(/\s+/);
@@ -21,16 +15,14 @@ function validateCommand(input) {
     const flags = args.filter(arg => arg.startsWith('-'));
     const paths = args.filter(arg => !arg.startsWith('-'));
 
-    if (flags.some(flag => !validLsFlags.includes(flag)))
-      return { valid: false, error: 'Invalid ls flags. Allowed: -l, -a, -h and combinations' };
+
 
 
     return { valid: true, command: cmd, args: args };
   }
 
   if (cmd === 'cat') {
-    if (args.some(arg => arg.startsWith('-')))
-      return { valid: false, error: 'Flags not allowed with cat command' };
+
 
 
     return { valid: true, command: cmd, args: args };
